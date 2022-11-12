@@ -82,14 +82,23 @@ app
     Article.findOneAndUpdate(
       { title: req.params.articleTitle },
       { $set: req.body },
-      function(err) {
-        if(!err) {
-          res.send("successfully updated article")
+      function (err) {
+        if (!err) {
+          res.send("successfully updated article");
         } else {
           res.send(err);
         }
       }
     );
+  })
+  .delete((req, res) => {
+    Article.deleteOne({ title: req.params.articleTitle }, function (err) {
+      if (!err) {
+        res.send("successfully deleted");
+      } else {
+        res.send("error while deleting");
+      }
+    });
   });
 
 app.listen(3000, () => {
