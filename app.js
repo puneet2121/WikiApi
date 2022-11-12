@@ -38,6 +38,17 @@ app.post("/articles", (req,res) => {
   })
 })
 
+app.delete('/articles',(req,res) => {
+  Article.deleteMany(function(err) {
+    if(!err) {
+      res.send("deleted all data")
+    }
+    else {
+      res.send("error while deleting")
+    }
+  })
+})
+
 app.listen(3000,() => {
   console.log('listeinig on 3000')
 })
