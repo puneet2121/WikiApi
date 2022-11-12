@@ -18,7 +18,8 @@ const articleSchema = new mongoose.Schema ({
 
 const Article = mongoose.model('article',articleSchema);
 
-app.route('articles')
+//////////// Request for all articles //////////////
+app.route('/articles')
 
 .get((req,res) => {
   Article.find(function(err,foundArticles){
@@ -47,7 +48,21 @@ app.route('articles')
       res.send("error while deleting")
     }
   })
+});
+
+//////////// Request for one article //////////////
+app.route('/articles/:articleTitle')
+.get((req,res) => {
+  
+  Article.findOne({title:req.params.articleTitle},function(err,foundArticles){
+    if(foundArticles) {
+      res.send(foundArticles);
+    } else {
+      res.send("No articles were found regarding the title")
+    }
+  })
 })
+
 
 app.listen(3000,() => {
   console.log('listeinig on 3000')
